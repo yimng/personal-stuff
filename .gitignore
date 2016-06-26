@@ -34,3 +34,5 @@
 *.cmt
 *.cmti
 *.so
+*.native
+*.byte
