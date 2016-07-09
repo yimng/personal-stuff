@@ -1,0 +1,14 @@
+# pick: select arguments
+
+PATH=/bin:/usr/bin
+
+for i in "$@"
+do
+	echo -n "$i?"
+	read response
+	case $response in
+	y*)	echo $i ;;
+	q*)	break
+	esac
+done
+
