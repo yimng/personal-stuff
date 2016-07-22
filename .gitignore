@@ -36,3 +36,4 @@
 *.so
 *.native
 *.byte
+*.out
