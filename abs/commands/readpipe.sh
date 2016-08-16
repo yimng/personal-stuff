@@ -2,7 +2,7 @@
 # readpipe.sh
 # This example contributed by Bjon Eriksson.
 
-### shopt -s lastpipe
+###shopt -s lastpipe
 
 last="(null)"
 cat $0 |
