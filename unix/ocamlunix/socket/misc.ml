@@ -51,5 +51,12 @@ let double_fork_treatment server service (client_descr, _ as client) =
   in
   try_finalize treat () close client_descr
 
+<<<<<<< HEAD
 let run_with_lock l f x =
   Mutex.lock l; try_finalize f x Mutex.unlock l
+=======
+let co_treatment server_sock service (client_descr, _ as client) =
+  try ignore (Thread.create service client)
+  with exn -> close client_descr; raise exn
+
+>>>>>>> 3f118b06a940e180abe5e1219be4d0cef572a579
