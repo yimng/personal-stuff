@@ -50,3 +50,6 @@ let double_fork_treatment server service (client_descr, _ as client) =
       ignore (restart_on_EINTR (waitpid []) k)
   in
   try_finalize treat () close client_descr
+
+let run_with_lock l f x =
+  Mutex.lock l; try_finalize f x Mutex.unlock l
