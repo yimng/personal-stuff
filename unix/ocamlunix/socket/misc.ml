@@ -50,3 +50,8 @@ let double_fork_treatment server service (client_descr, _ as client) =
       ignore (restart_on_EINTR (waitpid []) k)
   in
   try_finalize treat () close client_descr
+
+let co_treatment server_sock service (client_descr, _ as client) =
+  try ignore (Thread.create service client)
+  with exn -> close client_descr; raise exn
+
