@@ -1,3 +1,5 @@
+#include<stdio.h>
+
 void squeeezze(char s1[], char s2[])
 {
 	int i, j, k;
@@ -9,4 +11,12 @@ void squeeezze(char s1[], char s2[])
 			s1[k++] = s1[i];
 	}
 	s1[k] = '\0';
+}
+
+int main()
+{
+  char s1 [] = "abcdddefghijklmn";
+  char s2 [] = "cdin888";
+  squeeezze(s1, s2);
+  printf("%s\n", s1);
 }
