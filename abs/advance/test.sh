@@ -1,8 +1,10 @@
+# As Seamus points out . . .
 
-#!/bin/bash
+ArrayVar=( element0 element1 element2 {A..D} )
 
-: <<TESTVARIABLES
-${HOSTNAME?}${USER?}${MAIL?}  # Print error message if one of the variables not set.
-TESTVARIABLES
+while read element ; do
+    echo "h"
+    echo "$element" 1>&2
+  done <<< $(echo ${ArrayVar[*]})
 
-exit $?
+  # element0 element1 element2 A B C D
