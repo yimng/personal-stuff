@@ -1,6 +1,6 @@
 #!/bin/bash
 # psub.bash
-
+set -x
 # As inspired by Diego Molina (thanks!).
 
 declare -a array0
