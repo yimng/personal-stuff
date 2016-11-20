@@ -1,25 +1,19 @@
-f1
-# Will give an error message, since function "f1" not yet defined.
-
-declare -f f1      # This doesn't help either.
-f1                 # Still an error message.
-
-# However...
-
-    
-f1 ()
+count_lines_in_etc_passwd()
 {
-  echo "Calling function \"f2\" from within function \"f1\"."
-  f2
+  [[ -r /etc/passwd ]] && REPLY=$(echo $(wc -l < /etc/passwd))
+  #  If /etc/passwd is readable, set REPLY to line count.
+  #  Returns both a parameter value and status information.
+  #  The 'echo' seems unnecessary, but . . .
+  #+ it removes excess whitespace from the output.
+  return 254
 }
 
-f2 ()
-{
-  echo "Function \"f2\"."
-}
+count_lines_in_etc_passwd
+echo $?
+if count_lines_in_etc_passwd
+then
+  echo "There are $REPLY lines in /etc/passwd."
+else
+  echo "Cannot count lines in /etc/passwd."
+fi  
 
-f1  #  Function "f2" is not actually called until this point,
-    #+ although it is referenced before its definition.
-    #  This is permissible.
-    
-    # Thanks, S.C.
