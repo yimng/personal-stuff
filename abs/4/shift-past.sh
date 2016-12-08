@@ -12,8 +12,8 @@ exit 0
 # ======================== #
 
 
-$ sh shift-past.sh 1 2 3 4 5
-4
+#$ sh shift-past.sh 1 2 3 4 5
+#4
 
 #  However, as Eleni Fragkiadaki, points out,
 #+ attempting a 'shift' past the number of
