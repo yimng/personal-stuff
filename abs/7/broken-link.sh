@@ -46,12 +46,12 @@ linkchk () {
 #+ and usage info.
 ##################
 for directory in $directorys; do
-    if [ -d $directory ]
-  then linkchk $directory
+  if [ -d $directory ]
+    then linkchk $directory
   else 
-      echo "$directory is not a directory"
-      echo "Usage: $0 dir1 dir2 ..."
-    fi
+    echo "$directory is not a directory"
+    echo "Usage: $0 dir1 dir2 ..."
+  fi
 done
 
 exit $?
