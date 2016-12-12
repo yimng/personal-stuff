@@ -5,7 +5,7 @@ RANDOM=$$       # Reseed the random number generator using script process ID.
 echo "RANDOM = $RANDOM"
 
 PIPS=6          # A die has 6 pips.
-MAXTHROWS=6000  # Increase this if you have nothing better to do with your time.
+MAXTHROWS=500  # Increase this if you have nothing better to do with your time.
 throw=0         # Number of times the dice have been cast.
 
 ones=0          #  Must initialize counts to zero,
