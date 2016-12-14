@@ -28,6 +28,7 @@ exit
 # ---------
 #  1) The script usually inserts a blank line at the end
 #+    of the target file. Fix this.
+#     Lukun: How?
 #  2) Line 17 only considers periods as sentence terminators.
 #     Modify this to include other common end-of-sentence characters,
 #+    such as ?, !, and ".
