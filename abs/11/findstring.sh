@@ -2,8 +2,29 @@
 # findstring.sh:
 # Find a particular string in the binaries in a specified directory.
 
-directory=/usr/bin/
-fstring="Free Software Foundation"  # See which files come from the FSF.
+E_BADARGS=65
+E_NOFOLDER=66
+E_NOFILE=67
+
+if [ $# -ne 2 ]
+then
+  echo "Usage: `basename $0` search_string folder"
+  exit $E_BADARGS
+fi
+
+if [ ! -d $2 ]
+then
+  echo "Please supply the folder"
+  exit $E_NOFOLDER
+fi
+if [  -z "$1" ]
+then
+  echo "Please supply the search_string"
+  exit $E_NOFILE
+fi
+
+directory="$2"
+fstring="$1"  # See which files come from the FSF.
 
 for file in $( find $directory -type f -name '*' | sort )
 do
@@ -20,3 +41,4 @@ exit $?
 #  ---------------
 #  Convert this script to take command-line parameters
 #+ for $directory and $fstring.
+

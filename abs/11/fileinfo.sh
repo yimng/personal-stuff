@@ -18,7 +18,7 @@ do
   then
     echo "$file does not exist."; echo
     continue                # On to next.
-   fi
+  fi
 
   ls -l $file | awk '{ print $8 "         file size: " $5 }'  # Print 2 fields.
   whatis `basename $file`   # File info.
