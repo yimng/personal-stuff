@@ -11,7 +11,7 @@ do
 
     if [[ "$inner" -eq 7 && "$outer" = "III" ]]
     then
-      continue 2  # Continue at loop on 2nd level, that is "outer loop".
+      continue  2 # Continue at loop on 2nd level, that is "outer loop".
                   # Replace above line with a simple "continue"
                   # to see normal loop behavior.
     fi  
