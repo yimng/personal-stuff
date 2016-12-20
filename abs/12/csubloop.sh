@@ -1,13 +1,14 @@
 #!/bin/bash
 # csubloop.sh: Setting a variable to the output of a loop.
 
-variable1=`for i in 1 2 3 4 5
+variable1=$(for i in 1 2 3 4 5
 do
   echo -n "$i"                 #  The 'echo' command is critical
-done`                          #+ to command substitution here.
+done)                          #+ to command substitution here.
 
 echo "variable1 = $variable1"  # variable1 = 12345
-
+(( variable1-- ))
+echo $variable1
 
 i=0
 variable2=`while [ "$i" -lt 10 ]
