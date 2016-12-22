@@ -5,7 +5,7 @@
 
 set a\ b c d\ e;
 #     ^      ^     Spaces escaped 
-#       ^ ^        Spaces not escaped
+#       ^ ^        Spaces not escaed
 OIFS=$IFS; IFS=:;
 #              ^   Saving old IFS and setting new one.
 
