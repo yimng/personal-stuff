@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /bin/bash
 # wf.sh: Crude word frequency analysis on a text file.
 # This is a more efficient version of the "wf2.sh" script.
 

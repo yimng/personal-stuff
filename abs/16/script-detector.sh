@@ -1,10 +1,22 @@
 #!/bin/bash
 # script-detector.sh: Detects scripts within a directory.
+ARGS=1
+E_BADARGS=85
+E_NODIR=86
+if [ $# -ne "$ARGS" ]
+then
+    echo "Usage: `basename $0` dir"
+    exit $E_BADARGS
+fi
+if [[ ! -d $1 ]]
+then
+    echo "pllease supply a dir"
+    exit $E_NODIR
+fi
+TESTCHARS=11    # Test first 2 characters.
+SHABANG='#!/bin/bash'   # Scripts begin with a "sha-bang."
 
-TESTCHARS=2    # Test first 2 characters.
-SHABANG='#!'   # Scripts begin with a "sha-bang."
-
-for file in *  # Traverse all the files in current directory.
+for file in $1/*  # Traverse all the files in current directory.
 do
   if [[ `head -c$TESTCHARS "$file"` = "$SHABANG" ]]
   #      head -c2                      #!
