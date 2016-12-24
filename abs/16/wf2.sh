@@ -14,32 +14,30 @@ if [ $# -ne "$ARGS" ]
   # Correct number of arguments passed to script?
 then
     echo "Usage: `basename $0` filename"
-      exit $E_BADARGS
-    fi
+    exit $E_BADARGS
+fi
 
-    if [ ! -f "$1" ]       # Does file exist?
-    then
-        echo "File \"$1\" does not exist."
-          exit $E_NOFILE
-        fi
+if [ ! -f "$1" ]       # Does file exist?
+then
+    echo "File \"$1\" does not exist."
+    exit $E_NOFILE
+fi
 
+#####################################################
+cat "$1" | xargs -n1 | \
+  #  List the file, one word per line. 
+tr A-Z a-z | \
+  #  Shift characters to lowercase.
+sed -e 's/\.//g'  -e 's/\,//g' -e 's/ /\
+  /g' | \
+  #  Filter out periods and commas, and
+#+ change space between words to linefeed,
+sort | uniq -c | sort -nr
+#  Finally remove duplicates, prefix occurrence count
+#+ and sort numerically.
+#####################################################
 
+#  This does the same job as the "wf.sh" example,
+#+ but a bit more ponderously, and it runs more slowly (why?).
 
-        #####################################################
-        cat "$1" | xargs -n1 | \
-          #  List the file, one word per line. 
-        tr A-Z a-z | \
-          #  Shift characters to lowercase.
-        sed -e 's/\.//g'  -e 's/\,//g' -e 's/ /\
-          /g' | \
-          #  Filter out periods and commas, and
-        #+ change space between words to linefeed,
-        sort | uniq -c | sort -nr
-        #  Finally remove duplicates, prefix occurrence count
-        #+ and sort numerically.
-        #####################################################
-
-        #  This does the same job as the "wf.sh" example,
-        #+ but a bit more ponderously, and it runs more slowly (why?).
-
-        exit $?
+exit $?
