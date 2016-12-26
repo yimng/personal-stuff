@@ -43,12 +43,13 @@ do
                   with argument \"$OPTARG\"   [OPTIND=${OPTIND}]";;
     #  Note that option 'q' must have an associated argument,
     #+ otherwise it falls through to the default.
-    r | s ) echo "Scenario #5: option -$Option-";;
-    *     ) echo "Unimplemented option chosen.";;   # Default.
+    r | s ) echo "Scenario #5: option -$Option- [OPTIND=${OPTIND}]";;
+    *     ) echo "Unimplemented option chosen. [OPTIND=${OPTIND}]";;   # Default.
   esac
 done
 
 shift $(($OPTIND - 1))
+echo "$@"
 #  Decrements the argument pointer so it points to next argument.
 #  $1 now references the first non-option item supplied on the command-line
 #+ if one exists.
