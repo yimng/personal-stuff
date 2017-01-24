@@ -3,6 +3,15 @@
 
 : ${1?"Usage: `basename $0` target-file"}
 # Must specify 'rpm' archive name as an argument.
+[ -e $1 ] || exit 1
+
+type=`file -b ${1}`
+
+if [ ${type:0:3} != "RPM" ]
+then
+  echo "not rpm"
+  exit 1
+fi
 
 
 TEMPFILE=$$.cpio                         #  Tempfile with "unique" name.
