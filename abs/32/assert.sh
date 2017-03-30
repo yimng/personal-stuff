@@ -31,7 +31,7 @@ assert ()                 #  If condition false,
 
 a=5
 b=4
-condition="$a -gt $b"     #  Error message and exit from script.
+condition="$a -lt $b"     #  Error message and exit from script.
                           #  Try setting "condition" to something else
                           #+ and see what happens.
 
