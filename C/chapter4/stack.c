@@ -23,3 +23,8 @@ double pop()
     }
 
 }
+
+void clear(void)
+{
+    sp = 0;
+}
