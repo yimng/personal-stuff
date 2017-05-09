@@ -1,0 +1,47 @@
+personal info:
+name: Lukun
+age: 36
+e-mail: yimng@me.com
+url: http://github.com/yimng
+
+professional objectives
+    I thrive on tackling diversified high technology challenges that involve creativity and problem solving. I have got a fast learning abilities and I have an extensive experience of java, c#, CentOS and xenserver. I seek a posision as a expert software engineer in a progressive company that will fulfil my eagerness to extend my experience and knowledge.
+
+skills
+    Programming:
+        Strong skill in java, C#, skilled in bash; working-level knowledge of OCaml, javascript; Good knowledge of a number of other interpreted languages(python, perl...); past experiences in  object oriented development (Java, C#) and distributed programming (javascript, python, OCaml, bash).
+
+Operating System:
+    Using CentOS as the development enviroment and skilled with the tool-kit on it(such as git, svn, vim, make) and familiar with FreeBSD.
+
+Networks:
+    work-level knowledge of iternale protocols(ethernet, IP (v4), UDP, TCP, SCTP and many application level ones HTTP, SSL, IMAP...).
+
+Tools:
+    Skilled use Vim, git, svn, rpm, make, mysql. Mastering the CentOS toolchest(base, administrator and development).
+
+General skills:
+    Fast learning, strong ability to analysing code and grab the design. Creative in approach to problem solving. Strong physics and maths backgroud.
+
+Languages:
+    Mandarin: mother tongue,
+    English: basic listening, speaking; trained reading and writing.
+
+Experience:
+    2013-current: Halsign Corporation. 
+    Implement and maintain the company's product called vGate, mainly involve in the xen api devepment. (xen api is base on opensource xen api, most written by OCaml, I maintains xen api's patch and upgrade and other things such as new function implement)
+    Re-development freenas which build system is base on freebsd. (freenas is opensource and I mainly re-design the UI of freenas which is base the MVC framework called Django).
+    Design implement and maintain the vGate Console which is base on opensource xenadmin. I am responsible for the function and bugfix. The vGate console is written in
+    C#.
+    Build and maintain an auto-build system for vGate Console base on cruisecontrol.
+    Familiar with the Anaconda which is the installer of CentOS. re-design the Anaconda to adapt to the vGate installition.
+    Very experience with Citrix's xenserver.
+
+
+Education
+    2002 - 2006
+    Study in Beijing Institute of Technology as physics major.
+
+Interest:
+    Sports  swimming, hiking, badminton.
+    Leisure activities  music, Pingpong, film, go, cooking and family life.
