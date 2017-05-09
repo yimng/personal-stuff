@@ -29,10 +29,9 @@ Languages:
 
 Experience:
     2013-current: Halsign Corporation. 
-    Implement and maintain the company's product called vGate, mainly involve in the xen api devepment. (xen api is base on opensource xen api, most written by OCaml, I maintains xen api's patch and upgrade and other things such as new function implement)
-    Re-development freenas which build system is base on freebsd. (freenas is opensource and I mainly re-design the UI of freenas which is base the MVC framework called Django).
-    Design implement and maintain the vGate Console which is base on opensource xenadmin. I am responsible for the function and bugfix. The vGate console is written in
-    C#.
+    Implement and maintain the company's product called vGate, mainly involve in the xen api devepment. (vGate is base on opensource xenserver, which toolstack call xapi is most written in OCaml, I maintains xen api's patch and upgrade and other things such as new function implement)
+    Re-development freenas which is a NAS system with UI. (freenas is an opensource and I mainly re-design the UI of freenas which is base the MVC framework Django).
+    Design implement and maintain the vGate Console which is base on opensource xenadmin. I am responsible for the function and bugfix. The vGate console is written in C#
     Build and maintain an auto-build system for vGate Console base on cruisecontrol.
     Familiar with the Anaconda which is the installer of CentOS. re-design the Anaconda to adapt to the vGate installition.
     Very experience with Citrix's xenserver.
