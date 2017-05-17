@@ -81,6 +81,5 @@ public class LinkedStack<Item> implements Iterable<Item> {
 			current = current.next;
 			return item;
 		}
-		
 	}
 }
