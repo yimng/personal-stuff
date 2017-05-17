@@ -1,7 +1,10 @@
-package alg;
+package alg.basic;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+
+import stdio.StdIn;
+import stdio.StdOut;
 
 public class ResizingArrayQueue<Item> implements Iterable<Item>{
 	private Item[] queue;
@@ -94,5 +97,15 @@ public class ResizingArrayQueue<Item> implements Iterable<Item>{
 			return item;
 		}
 	}
+	
+	public static void main(String[] args) {
+        ResizingArrayQueue<String> queue = new ResizingArrayQueue<String>();
+        while (!StdIn.isEmpty()) {
+            String item = StdIn.readString();
+            if (!item.equals("-")) queue.enqueue(item);
+            else if (!queue.isEmpty()) StdOut.print(queue.dequeue() + " ");
+        }
+        StdOut.println("(" + queue.size() + " left on queue)");
+    }
 	
 }

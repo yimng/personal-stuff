@@ -1,4 +1,4 @@
-package alg;
+package alg.basic;
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
