@@ -73,12 +73,12 @@ public class ResizingArrayQueue<Item> implements Iterable<Item>{
 	
 	@Override
 	public Iterator<Item> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		return new ArrayIterator();
 	}
 	
 	private class ArrayIterator implements Iterator<Item> {
 		private int i = 0;
+		
 		@Override
 		public boolean hasNext() {
 			return i < n;
