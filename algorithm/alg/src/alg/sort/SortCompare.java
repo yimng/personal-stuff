@@ -5,7 +5,7 @@ import stdio.StdRandom;
 import stdio.Stopwatch;
 
 public class SortCompare {
-	public static double time(String alg, Comparable[] a) {
+	public static <T> double time(String alg, Comparable<T>[] a) {
 		Stopwatch timer = new Stopwatch();
 		if (alg.equals("Insertion"))
 			Insertion.sort(a);
@@ -18,7 +18,7 @@ public class SortCompare {
 		if (alg.equals("MergeBU"))
 			MergeBU.sort(a);
 		if (alg.equals("Quick"))
-			Insertion.sort(a);
+			Quick.sort(a);
 		if (alg.equals("Heap"))
 			Insertion.sort(a);
 		return timer.elapsedTime();

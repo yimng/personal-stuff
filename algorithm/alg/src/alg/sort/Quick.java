@@ -1,16 +1,14 @@
 package alg.sort;
 
-import stdio.StdRandom;
-
 public class Quick extends Sort {
 
 	private Quick() {
 	}
 
 	public static void sort(Comparable[] a) {
-		StdRandom.shuffle(a);
+		// StdRandom.shuffle(a);
 		sort(a, 0, a.length - 1);
-		assert isSorted(a);
+		// assert isSorted(a);
 	}
 
 	public static void sort(Comparable[] a, int lo, int hi) {
