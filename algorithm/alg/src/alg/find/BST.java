@@ -1,5 +1,11 @@
 package alg.find;
 
+import java.util.NoSuchElementException;
+
+import alg.basic.ResizingArrayQueue;
+import stdio.StdIn;
+import stdio.StdOut;
+
 public class BST<Key extends Comparable<Key>, Value> {
 	private Node root;
 
@@ -7,13 +13,20 @@ public class BST<Key extends Comparable<Key>, Value> {
 		private Key key;
 		private Value val;
 		private Node left, right;
-		private int N;
+		private int size;
 
 		public Node(Key key, Value val, int N) {
 			this.key = key;
 			this.val = val;
-			this.N = N;
+			this.size = N;
 		}
+	}
+
+	public BST() {
+	}
+
+	public boolean isEmpty() {
+		return size() == 0;
 	}
 
 	public int size() {
@@ -24,7 +37,13 @@ public class BST<Key extends Comparable<Key>, Value> {
 		if (x == null)
 			return 0;
 		else
-			return x.N;
+			return x.size;
+	}
+
+	public boolean contains(Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("argument to contains() is null");
+		return get(key) != null;
 	}
 
 	public Value get(Key key) {
@@ -32,9 +51,10 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 
 	private Value get(Node node, Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("called get() with a null key");
 		if (node == null)
 			return null;
-
 		int c = key.compareTo(node.key);
 		if (c < 0) {
 			return get(node.left, key);
@@ -45,8 +65,29 @@ public class BST<Key extends Comparable<Key>, Value> {
 		}
 	}
 
+	public int size(Key lo, Key hi) {
+		if (lo == null)
+			throw new IllegalArgumentException("first argument to size() is null");
+		if (hi == null)
+			throw new IllegalArgumentException("second argument to size() is null");
+
+		if (lo.compareTo(hi) > 0)
+			return 0;
+		if (contains(hi))
+			return rank(hi) - rank(lo) + 1;
+		else
+			return rank(hi) - rank(lo);
+	}
+
 	public void put(Key key, Value val) {
+		if (key == null)
+			throw new IllegalArgumentException("calledput() with a null key");
+		if (val == null) {
+			delete(key);
+			return;
+		}
 		root = put(root, key, val);
+		assert check();
 	}
 
 	private Node put(Node x, Key key, Value value) {
@@ -59,11 +100,13 @@ public class BST<Key extends Comparable<Key>, Value> {
 			x.right = put(x.right, key, value);
 		else
 			x.val = value;
-		x.N = size(x.left) + size(x.right) + 1;
+		x.size = size(x.left) + size(x.right) + 1;
 		return x;
 	}
 
 	public Key max() {
+		if (isEmpty())
+			throw new NoSuchElementException("called max() with empty symbol table");
 		return max(root).key;
 	}
 
@@ -74,6 +117,8 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 
 	public Key min() {
+		if (isEmpty())
+			throw new NoSuchElementException("called min() with empty symbol table");
 		return min(root).key;
 	}
 
@@ -84,10 +129,15 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 
 	public Key floor(Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("argument to floor() is null");
+		if (isEmpty())
+			throw new NoSuchElementException("called floor() with empty symbol table");
 		Node x = floor(root, key);
 		if (x == null)
 			return null;
-		return x.key;
+		else
+			return x.key;
 	}
 
 	private Node floor(Node x, Key key) {
@@ -106,10 +156,15 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 
 	public Key ceiling(Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("argument to ceiling() is null");
+		if (isEmpty())
+			throw new NoSuchElementException("called ceiling() with empty symbol table");
 		Node x = ceiling(root, key);
 		if (x == null)
 			return null;
-		return x.key;
+		else
+			return x.key;
 	}
 
 	private Node ceiling(Node x, Key key) {
@@ -118,20 +173,39 @@ public class BST<Key extends Comparable<Key>, Value> {
 		int cmp = key.compareTo(x.key);
 		if (cmp == 0)
 			return x;
-		if (cmp > 0)
-			return ceiling(x.right, key);
-		Node t = ceiling(x.left, key);
-		if (t != null)
-			return t;
+		if (cmp < 0) {
+			Node t = ceiling(x.left, key);
+			if (t != null)
+				return t;
+			else
+				return x;
+		}
+		return ceiling(x.right, key);
+	}
+
+	public Key select(int k) {
+		if (k < 0 || k >= size()) {
+			throw new IllegalArgumentException("called select() with invalid argument: " + k);
+		}
+		Node x = select(root, k);
+		return x.key;
+	}
+
+	private Node select(Node x, int k) {
+		if (x == null)
+			return null;
+		int t = size(x.left);
+		if (t > k)
+			return select(x.left, k);
+		else if (t < k)
+			return select(x.right, k - t - 1);
 		else
 			return x;
 	}
 
-	public Node select(int k) {
-		return null;
-	}
-
 	public int rank(Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("argument to rank() is null");
 		return rank(key, root);
 	}
 
@@ -148,7 +222,10 @@ public class BST<Key extends Comparable<Key>, Value> {
 	}
 
 	public void delete(Key key) {
+		if (key == null)
+			throw new IllegalArgumentException("called delete() with a null key");
 		root = delete(root, key);
+		assert check();
 	}
 
 	private Node delete(Node x, Key key) {
@@ -171,32 +248,154 @@ public class BST<Key extends Comparable<Key>, Value> {
 			x.right = deleteMin(t.right);
 			x.left = t.left;
 		}
-		x.N = size(x.left) + size(x.right) + 1;
+		x.size = size(x.left) + size(x.right) + 1;
 		return x;
 	}
 
 	public void deleteMin() {
+		if (isEmpty())
+			throw new NoSuchElementException("Symbol table underflow");
 		root = deleteMin(root);
+		assert check();
 	}
 
 	private Node deleteMin(Node x) {
 		if (x.left == null)
 			return x.right;
 		x.left = deleteMin(x.left);
-		x.N = size(x.left) + size(x.right) + 1;
+		x.size = size(x.left) + size(x.right) + 1;
 		return x;
 	}
 
 	public void deleteMax() {
+		if (isEmpty())
+			throw new NoSuchElementException("Symbol table underflow");
 		root = deleteMax(root);
+		assert check();
 	}
-	
+
 	private Node deleteMax(Node x) {
 		if (x.right == null) {
 			return x.left;
 		}
 		x.right = deleteMax(x.right);
-		x.N = size(x.left) + size(x.right) + 1;
+		x.size = size(x.left) + size(x.right) + 1;
 		return x;
+	}
+
+	public int height() {
+		return height(root);
+	}
+
+	private int height(Node x) {
+		if (x == null)
+			return -1;
+		return 1 + Math.max(height(x.left), height(x.right));
+	}
+
+	public Iterable<Key> levelOrder() {
+		ResizingArrayQueue<Key> keys = new ResizingArrayQueue<Key>();
+		ResizingArrayQueue<Node> queue = new ResizingArrayQueue<Node>();
+		queue.enqueue(root);
+		while (!queue.isEmpty()) {
+			Node x = queue.dequeue();
+			if (x == null)
+				continue;
+			keys.enqueue(x.key);
+			queue.enqueue(x.left);
+			queue.enqueue(x.right);
+		}
+		return keys;
+	}
+
+	public Iterable<Key> keys() {
+		return keys(min(), max());
+	}
+
+	public Iterable<Key> keys(Key lo, Key hi) {
+		if (lo == null)
+			throw new IllegalArgumentException("first argument to keys() is null");
+		if (hi == null)
+			throw new IllegalArgumentException("second argument to keys() is null");
+
+		ResizingArrayQueue<Key> queue = new ResizingArrayQueue<Key>();
+		keys(root, queue, lo, hi);
+		return queue;
+	}
+
+	private void keys(Node x, ResizingArrayQueue<Key> queue, Key lo, Key hi) {
+		if (x == null)
+			return;
+		int cmplo = lo.compareTo(x.key);
+		int cmphi = hi.compareTo(x.key);
+		if (cmplo < 0)
+			keys(x.left, queue, lo, hi);
+		if (cmplo <= 0 && cmphi >= 0)
+			queue.enqueue(x.key);
+		if (cmphi > 0)
+			keys(x.right, queue, lo, hi);
+		;
+	}
+
+	private boolean check() {
+		if (!isBST())
+			StdOut.println("Not in symmetric order");
+		if (!isSizeConsistent())
+			StdOut.println("Subtree counts not consistent");
+		if (!isRankConsistent())
+			StdOut.println("Ranks not consistent");
+		return isBST() && isSizeConsistent() && isRankConsistent();
+	}
+
+	private boolean isBST() {
+		return isBST(root, null, null);
+	}
+
+	private boolean isBST(Node x, Key min, Key max) {
+		if (x == null)
+			return true;
+		if (min != null && x.key.compareTo(min) <= 0)
+			return false;
+		if (max != null && x.key.compareTo(max) >= 0)
+			return false;
+		return isBST(x.left, min, x.key) && isBST(x.right, x.key, max);
+	}
+
+	private boolean isSizeConsistent() {
+		return isSizeConsistent(root);
+	}
+
+	private boolean isSizeConsistent(Node x) {
+		if (x == null)
+			return true;
+		if (x.size != size(x.left) + size(x.right) + 1)
+			return false;
+		return isSizeConsistent(x.left) && isSizeConsistent(x.right);
+	}
+
+	private boolean isRankConsistent() {
+		for (int i = 0; i < size(); i++)
+			if (i != rank(select(i)))
+				return false;
+		for (Key key : keys())
+			if (key.compareTo(select(rank(key))) != 0)
+				return false;
+		return true;
+	}
+
+	public static void main(String[] args) {
+		BST<String, Integer> st = new BST<String, Integer>();
+		for (int i = 0; !StdIn.isEmpty(); i++) {
+			String key = StdIn.readString();
+			st.put(key, i);
+		}
+
+		for (String s : st.levelOrder())
+			StdOut.println(s + " " + st.get(s));
+
+		StdOut.println();
+
+		for (String s : st.keys())
+			StdOut.println(s + " " + st.get(s));
 	}
 }
