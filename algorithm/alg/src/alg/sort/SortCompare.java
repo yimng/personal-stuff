@@ -20,7 +20,7 @@ public class SortCompare {
 		if (alg.equals("Quick"))
 			Quick.sort(a);
 		if (alg.equals("Heap"))
-			Insertion.sort(a);
+			Heap.sort(a);
 		return timer.elapsedTime();
 
 	}
