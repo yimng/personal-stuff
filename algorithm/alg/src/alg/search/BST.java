@@ -1,4 +1,4 @@
-package alg.find;
+package alg.search;
 
 import java.util.NoSuchElementException;
 
@@ -6,34 +6,31 @@ import alg.basic.ResizingArrayQueue;
 import stdio.StdIn;
 import stdio.StdOut;
 
-public class RedBlackBST<Key extends Comparable<Key>, Value> {
+public class BST<Key extends Comparable<Key>, Value> {
 	private Node root;
-	private static final boolean RED = true;
-	private static final boolean BLACK = false;
 
 	private class Node {
 		private Key key;
 		private Value val;
 		private Node left, right;
 		private int size;
-		private boolean color;
 
-		public Node(Key key, Value val, boolean color, int size) {
+		public Node(Key key, Value val, int N) {
 			this.key = key;
 			this.val = val;
-			this.color = color;
-			this.size = size;
+			this.size = N;
 		}
 	}
 
-	public RedBlackBST() {
+	public BST() {
 	}
 
-	private boolean isRed(Node x) {
-		if (x == null) {
-			return false;
-		}
-		return x.color == RED;
+	public boolean isEmpty() {
+		return size() == 0;
+	}
+
+	public int size() {
+		return size(root);
 	}
 
 	public int size(Node x) {
@@ -41,14 +38,6 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 			return 0;
 		else
 			return x.size;
-	}
-
-	public int size() {
-		return size(root);
-	}
-
-	public boolean isEmpty() {
-		return size() == 0;
 	}
 
 	public boolean contains(Key key) {
@@ -98,57 +87,21 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 			return;
 		}
 		root = put(root, key, val);
-		root.color = BLACK;
 		assert check();
 	}
 
-	private Node put(Node h, Key key, Value value) {
-		if (h == null)
-			return new Node(key, value, RED, 1);
+	private Node put(Node x, Key key, Value value) {
+		if (x == null)
+			return new Node(key, value, 1);
 		int cmp = key.compareTo(key);
 		if (cmp < 0)
-			h.left = put(h.left, key, value);
+			x.left = put(x.left, key, value);
 		else if (cmp > 0)
-			h.right = put(h.right, key, value);
+			x.right = put(x.right, key, value);
 		else
-			h.val = value;
-
-		if (isRed(h.right) && !isRed(h.left))
-			h = rotateLeft(h);
-		if (isRed(h.left) && isRed(h.left.left))
-			h = rotateRight(h);
-		if (isRed(h.left) && isRed(h.right))
-			flipColors(h);
-		h.size = size(h.left) + size(h.right) + 1;
-		return h;
-	}
-
-	private Node rotateRight(Node h) {
-		Node x = h.left;
-		h.left = x.right;
-		x.right = h;
-		x.color = h.color;
-		h.color = RED;
-		x.size = h.size;
-		h.size = size(h.left) + size(h.right) + 1;
+			x.val = value;
+		x.size = size(x.left) + size(x.right) + 1;
 		return x;
-	}
-
-	private Node rotateLeft(Node h) {
-		Node x = h.right;
-		h.right = x.left;
-		x.left = h;
-		x.color = h.color;
-		h.color = RED;
-		x.size = h.size;
-		h.size = size(h.left) + size(h.right) + 1;
-		return x;
-	}
-	
-	private void flipColors(Node h) {
-		h.right.color = !h.right.color;
-		h.left.color = !h.left.color;
-		h.color = !h.color;
 	}
 
 	public Key max() {
@@ -445,5 +398,4 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 		for (String s : st.keys())
 			StdOut.println(s + " " + st.get(s));
 	}
-
 }

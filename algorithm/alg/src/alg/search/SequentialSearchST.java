@@ -1,4 +1,4 @@
-package alg.find;
+package alg.search;
 
 import alg.basic.ResizingArrayQueue;
 import stdio.StdIn;

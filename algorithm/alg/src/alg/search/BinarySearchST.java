@@ -1,4 +1,4 @@
-package alg.find;
+package alg.search;
 /******************************************************************************
  *  Compilation:  javac BinarySearchST.java
  *  Execution:    java BinarySearchST

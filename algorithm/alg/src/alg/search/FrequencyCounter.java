@@ -1,4 +1,4 @@
-package alg.find;
+package alg.search;
 /******************************************************************************
  *  Compilation:  javac FrequencyCounter.java
  *  Execution:    java FrequencyCounter L < input.txt
