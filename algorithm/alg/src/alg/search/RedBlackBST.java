@@ -175,6 +175,20 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 		return min(x.left);
 	}
 
+	private Node balance(Node h) {
+		if (isRed(h.right)) {
+			h = rotateLeft(h);
+		}
+		if (isRed(h.left) && isRed(h.left.left)) {
+			h = rotateRight(h);
+		}
+		if (isRed(h.left) && isRed(h.right)) {
+			flipColors(h);
+		}
+		h.size = size(h.left) + size(h.right) + 1;
+		return h;
+	}
+	
 	public Key floor(Key key) {
 		if (key == null)
 			throw new IllegalArgumentException("argument to floor() is null");
