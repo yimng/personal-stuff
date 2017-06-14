@@ -1,7 +1,10 @@
-file=data.txt
-title="***This is the title line of data text file***"
+#!/bin/bash
+MY_PROMPT='$ '
+while :
+do
+  echo -n "$MY_PROMPT"
+  read line
+  eval "$line"
+done
 
-echo $title | cat - $file >$file.new
-# "cat -" concatenates stdout to $file.
-#  End result is
-#+ to write a new file with $title appended at *beginning*.
+exit 0
