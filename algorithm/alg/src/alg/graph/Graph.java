@@ -30,7 +30,7 @@ public class Graph {
 			addEdge(v, w);
 		}
 	}
-	
+
 	public Graph(Graph G) {
 		this(G.V());
 		this.E = G.E();
@@ -62,11 +62,11 @@ public class Graph {
 	public Iterable<Integer> adj(int v) {
 		return adj[v];
 	}
-	
+
 	public int degree(int v) {
 		return adj[v].size();
 	}
-	
+
 	public String toString() {
 		StringBuilder s = new StringBuilder();
 		s.append(V + " vertices, " + E + " edges " + NEWLINE);
@@ -79,8 +79,8 @@ public class Graph {
 		}
 		return s.toString();
 	}
-	
-	public static void main(String[]args) {
+
+	public static void main(String[] args) {
 		In in = new In(args[0]);
 		Graph G = new Graph(in);
 		StdOut.println(G);
