@@ -144,7 +144,35 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 		h.size = size(h.left) + size(h.right) + 1;
 		return x;
 	}
-	
+
+	// Assuming that h is red and both h.left and h.left.left
+	// are black, make h.left or one of its children red.
+	private Node moveRedLeft(Node h) {
+		// assert (h != null);
+		// assert isRed(h) && !isRed(h.left) && !isRed(h.left.left);
+
+		flipColors(h);
+		if (isRed(h.right.left)) {
+			h.right = rotateRight(h.right);
+			h = rotateLeft(h);
+			flipColors(h);
+		}
+		return h;
+	}
+
+	// Assuming that h is red and both h.right and h.right.left
+	// are black, make h.right or one of its children red.
+	private Node moveRedRight(Node h) {
+		// assert (h != null);
+		// assert isRed(h) && !isRed(h.right) && !isRed(h.right.left);
+		flipColors(h);
+		if (isRed(h.left.left)) {
+			h = rotateRight(h);
+			flipColors(h);
+		}
+		return h;
+	}
+
 	private void flipColors(Node h) {
 		h.right.color = !h.right.color;
 		h.left.color = !h.left.color;
@@ -188,7 +216,7 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 		h.size = size(h.left) + size(h.right) + 1;
 		return h;
 	}
-	
+
 	public Key floor(Key key) {
 		if (key == null)
 			throw new IllegalArgumentException("argument to floor() is null");
@@ -283,65 +311,102 @@ public class RedBlackBST<Key extends Comparable<Key>, Value> {
 	}
 
 	public void delete(Key key) {
-		if (key == null)
-			throw new IllegalArgumentException("called delete() with a null key");
-		root = delete(root, key);
-		assert check();
+		if (key == null) throw new IllegalArgumentException("argument to delete() is null");
+        if (!contains(key)) return;
+
+        // if both children of root are black, set root to red
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = delete(root, key);
+        if (!isEmpty()) root.color = BLACK;
+        // assert check();
 	}
 
-	private Node delete(Node x, Key key) {
-		if (x == null)
-			return null;
-		int cmp = key.compareTo(x.key);
-		if (cmp < 0) {
-			x.left = delete(x.left, key);
-		} else if (cmp > 0) {
-			x.right = delete(x.right, key);
-		} else {
-			if (x.right == null) {
-				return x.left;
-			}
-			if (x.left == null) {
-				return x.right;
-			}
-			Node t = x;
-			x = min(t.right);
-			x.right = deleteMin(t.right);
-			x.left = t.left;
-		}
-		x.size = size(x.left) + size(x.right) + 1;
-		return x;
+	private Node delete(Node h, Key key) {
+		// assert get(h, key) != null;
+
+        if (key.compareTo(h.key) < 0)  {
+            if (!isRed(h.left) && !isRed(h.left.left))
+                h = moveRedLeft(h);
+            h.left = delete(h.left, key);
+        }
+        else {
+            if (isRed(h.left))
+                h = rotateRight(h);
+            if (key.compareTo(h.key) == 0 && (h.right == null))
+                return null;
+            if (!isRed(h.right) && !isRed(h.right.left))
+                h = moveRedRight(h);
+            if (key.compareTo(h.key) == 0) {
+                Node x = min(h.right);
+                h.key = x.key;
+                h.val = x.val;
+                // h.val = get(h.right, min(h.right).key);
+                // h.key = min(h.right).key;
+                h.right = deleteMin(h.right);
+            }
+            else h.right = delete(h.right, key);
+        }
+        return balance(h);
 	}
 
+	/**
+	 * Removes the smallest key and associated value from the symbol table.
+	 * 
+	 * @throws NoSuchElementException
+	 *             if the symbol table is empty
+	 */
 	public void deleteMin() {
 		if (isEmpty())
-			throw new NoSuchElementException("Symbol table underflow");
+			throw new NoSuchElementException("BST underflow");
+
+		// if both children of root are black, set root to red
+		if (!isRed(root.left) && !isRed(root.right))
+			root.color = RED;
+
 		root = deleteMin(root);
-		assert check();
+		if (!isEmpty())
+			root.color = BLACK;
+		// assert check();
 	}
 
-	private Node deleteMin(Node x) {
-		if (x.left == null)
-			return x.right;
-		x.left = deleteMin(x.left);
-		x.size = size(x.left) + size(x.right) + 1;
-		return x;
+	private Node deleteMin(Node h) {
+		if (h.left == null)
+			return null;
+
+		if (!isRed(h.left) && !isRed(h.left.left))
+			h = moveRedLeft(h);
+
+		h.left = deleteMin(h.left);
+		return balance(h);
 	}
 
 	public void deleteMax() {
-		if (isEmpty())
-			throw new NoSuchElementException("Symbol table underflow");
-		root = deleteMax(root);
-		assert check();
+		if (isEmpty()) throw new NoSuchElementException("BST underflow");
+
+        // if both children of root are black, set root to red
+        if (!isRed(root.left) && !isRed(root.right))
+            root.color = RED;
+
+        root = deleteMax(root);
+        if (!isEmpty()) root.color = BLACK;
+        // assert check();
 	}
 
-	private Node deleteMax(Node x) {
-		if (x.right == null) {
-			return x.left;
-		}
-		x.right = deleteMax(x.right);
-		x.size = size(x.left) + size(x.right) + 1;
-		return x;
+	private Node deleteMax(Node h) {
+		if (isRed(h.left))
+            h = rotateRight(h);
+
+        if (h.right == null)
+            return null;
+
+        if (!isRed(h.right) && !isRed(h.right.left))
+            h = moveRedRight(h);
+
+        h.right = deleteMax(h.right);
+
+        return balance(h);
 	}
 
 	public int height() {

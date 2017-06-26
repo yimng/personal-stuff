@@ -42,14 +42,12 @@ public class LinearProbingHashST<Key, Value> {
 
 	private void resize(int capacity) {
 		LinearProbingHashST<Key, Value> temp = new LinearProbingHashST<Key, Value>(capacity);
-		for (int i = 0; i < m; i++) {
-			if (keys[i] != null) {
-				temp.put(keys[i], vals[i]);
-			}
+		for (int i = 0; i < n; i++) {
+			temp.put(keys[i], vals[i]);
 		}
-		keys = temp.keys;
-		vals = temp.vals;
-		m = temp.m;
+		this.keys = temp.keys;
+		this.vals = temp.vals;
+		this.m = temp.m;
 	}
 
 	public void put(Key key, Value val) {
