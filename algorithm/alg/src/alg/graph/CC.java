@@ -1,7 +1,5 @@
 package alg.graph;
 
-import java.util.Queue;
-
 import alg.basic.LinkedQueue;
 import stdio.In;
 import stdio.StdOut;
