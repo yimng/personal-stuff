@@ -42,9 +42,7 @@ public class Cycle {
 	// side effect: initialize cycle to be two parallel edges
 	private boolean hasParallelEdges(Graph G) {
 		marked = new boolean[G.V()];
-
 		for (int v = 0; v < G.V(); v++) {
-
 			// check for parallel edges incident to v
 			for (int w : G.adj(v)) {
 				if (marked[w]) {
