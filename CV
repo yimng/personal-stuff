@@ -9,7 +9,8 @@ professional objectives
 
 skills
     Programming:
-        Strong skill in java, C#, skilled in bash; working-level knowledge of OCaml, javascript; Good knowledge of a number of other interpreted languages(python, perl...); past experiences in  object oriented development (Java, C#) and distributed programming (javascript, python, OCaml, bash).
+        Strong skill in java, C#. Developed lot of project with java. Skilled in bash; working-level knowledge of OCaml, javascript; Good knowledge of a number of other interpreted languages(python, perl...); past experiences in  object oriented development (Java, C#) and distributed programming (javascript, python, OCaml, bash).
+		Experienced with latest javascript framework such as reach, redux, and server end javascript nodejs. Familiar with python framwork Django and using it to develop the freenas app.
 
 Operating System:
     Using CentOS as the development enviroment and skilled with the tool-kit on it(such as git, svn, vim, make) and familiar with FreeBSD.
@@ -29,12 +30,18 @@ Languages:
 
 Experience:
     2013-current: Halsign Corporation. 
-    Implement and maintain the company's product called vGate, mainly involve in the xen api devepment. (vGate is base on opensource xenserver, which toolstack call xapi is most written in OCaml, I maintains xen api's patch and upgrade and other things such as new function implement)
-    Re-development freenas which is a NAS system with UI. (freenas is an opensource and I mainly re-design the UI of freenas which is base the MVC framework Django).
-    Design implement and maintain the vGate Console which is base on opensource xenadmin. I am responsible for the function and bugfix. The vGate console is written in C#
+    1. Implement and maintain the company's product called vGate, mainly involve in the xen api devepment. (vGate is base on opensource xenserver, which toolstack call xapi is most written in OCaml, I maintains xen api's patch and upgrade and other things such as new function implement). The Xen API on github: https://github.com/xapi-project/xen-api
+	
+    2. Re-development freenas which is a NAS system with UI. (freenas is an opensource and I mainly re-design the UI of freenas which is base the MVC framework Django). The FreeNAS on github: https://github.com/freenas/freenas
+	
+    3. Design implement and maintain the vGate Console which is base on opensource xenadmin. I am responsible for the function and bugfix. The vGate console is written in C#. The XenAdmin on github: https://github.com/xenserver/xenadmin
     Build and maintain an auto-build system for vGate Console base on cruisecontrol.
-    Familiar with the Anaconda which is the installer of CentOS. re-design the Anaconda to adapt to the vGate installition.
+	
+    4. Familiar with the Anaconda which is the installer of CentOS. re-design the Anaconda to adapt to the vGate installition.
     Very experience with Citrix's xenserver.
+	
+	5. Develop the XO which is a BS application and used to manage the vGate most for back and restore. The XO on gibhub: https://github.com/vatesfr/xo-server
+	https://github.com/vatesfr/xo-web
 
 
 Education
