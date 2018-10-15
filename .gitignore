@@ -37,3 +37,6 @@
 *.native
 *.byte
 *.out
+java/.idea
+java/learn.iml
+java/target
