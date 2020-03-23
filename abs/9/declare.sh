@@ -4,6 +4,11 @@ func1 ()
 {
   echo This is a function.
 }
+func2 ()
+{
+
+    echo
+}
 
 declare -f        # Lists the function above.
 
