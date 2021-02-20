@@ -1,0 +1,6 @@
+cat $*|
+tr -sc A-Za-z '\012'|
+sort |
+uniq -c |
+sort -n |
+tail
