@@ -1,2 +1,2 @@
 # newer f: list files newer than f
-ls -t | end '/^'$1'$/q'
+ls -t | sed '/^'$1'$/q'
